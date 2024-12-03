@@ -1,0 +1,21 @@
+---
+version: '3'
+services:
+    maven:
+        build:
+            context: ./docker
+            dockerfile: Dockerfile
+        volumes:
+          - type: volume
+            target: /app/java-tomcat-maven-example/target
+
+    tomcat:
+        image: tomcat:jre8-alpine
+        restart: 'on-failure'
+        ports:
+            - '8080:8080'
+        volumes:
+          - type: volume
+            target: :/usr/local/tomcat/webapps
+
+volumes:
